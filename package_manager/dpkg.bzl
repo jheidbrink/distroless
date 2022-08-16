@@ -6,8 +6,8 @@ exports_files(deb_files + ["packages.bzl"])
 """)
 
     args = [
-        # dpkg_parser.par must be built separately beforehand (bazel build ... //package_manager:dpkg_parser.par)
-        str(repository_ctx.path(Label("//:WORKSPACE")).dirname) + "/bazel-bin/package_manager/dpkg_parser.par",
+        # dpkg_parser.par must be built separately beforehand (bazel build ... //package_manager:dpkg_parser.par) and put into PATH
+        "dpkg_parser.par",
         "--package-files",
         ",".join([str(repository_ctx.path(src_path)) for src_path in repository_ctx.attr.sources]),
         "--packages",
@@ -38,8 +38,8 @@ package(default_visibility = ["//visibility:public"])
 exports_files(["Packages.json", "os_release.tar"])
 """)
     args = [
-        # dpkg_parser.par must be built separately beforehand (bazel build ... //package_manager:dpkg_parser.par)
-        str(repository_ctx.path(Label("//:WORKSPACE")).dirname) + "/bazel-bin/package_manager/dpkg_parser.par",
+        # dpkg_parser.par must be built separately beforehand (bazel build ... //package_manager:dpkg_parser.par) and put into PATH
+        "dpkg_parser.par",
         "--download-and-extract-only=True",
         "--mirror-url=" + repository_ctx.attr.url,
         "--arch=" + repository_ctx.attr.arch,
